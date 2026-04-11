@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard - House Price Prediction</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ========================================================= */
+  /*  ULTRA PREMIUM GLASSMORPHISM SYSTEM (Overrides everything) */
+  /* ========================================================= */
+  body {
+      font-family: 'Inter', sans-serif !important;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364) fixed !important;
+      color: #fff !important;
+      min-height: 100vh;
+      margin: 0;
+  }
+  
+  /* Global Card Styling (Applies to all dynamically generated cards) */
+  .card, .bg-light, .bg-dark, .bg-white, .bg-primary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-secondary {
+      background: rgba(255, 255, 255, 0.05) !important;
+      backdrop-filter: blur(15px) !important;
+      -webkit-backdrop-filter: blur(15px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+      color: #fff !important;
+      border-radius: 15px !important;
+      margin-bottom: 2rem !important;
+  }
+  .card-header {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #00c6ff !important;
+      border-top-left-radius: 15px !important;
+      border-top-right-radius: 15px !important;
+      font-weight: 700 !important;
+      padding: 15px 20px !important;
+  }
+  
+  /* Global Table Styling */
+  .table {
+      color: #fff !important;
+      --bs-table-bg: transparent !important;
+      --bs-table-color: #fff !important;
+      --bs-table-hover-bg: rgba(255, 255, 255, 0.08) !important;
+      --bs-table-border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  .table-dark {
+      --bs-table-bg: rgba(0,0,0,0.3) !important;
+  }
+  tbody tr {
+      transition: all 0.3s ease;
+  }
+  tbody tr:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      transform: scale(1.01);
+  }
+
+  /* Global Form Styling */
+  .form-control, .form-select {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: #fff !important;
+      border-radius: 10px !important;
+      padding: 12px !important;
+      transition: all 0.3s ease !important;
+  }
+  .form-control:focus, .form-select:focus {
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-color: #00c6ff !important;
+      box-shadow: 0 0 15px rgba(0, 198, 255, 0.3) !important;
+      color: #fff !important;
+  }
+  .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.4) !important;
+  }
+  option {
+      background: #203a43 !important;
+      color: #fff !important;
+  }
+  label {
+      color: #ddd !important;
+      font-weight: 600 !important;
+      font-size: 0.9rem !important;
+      text-transform: uppercase !important;
+      letter-spacing: 1px !important;
+      margin-bottom: 8px !important;
+  }
+
+  /* Global Button Styling */
+  .btn {
+      border-radius: 10px !important;
+      font-weight: 600 !important;
+      letter-spacing: 1px !important;
+      transition: all 0.3s ease !important;
+  }
+  .btn-primary, .btn-success, .btn-dark, .btn-warning, .btn-outline-dark, .btn-info {
+      background: linear-gradient(to right, #00c6ff, #0072ff) !important;
+      border: none !important;
+      color: #fff !important;
+  }
+  .btn-primary:hover, .btn-success:hover, .btn-dark:hover, .btn-outline-dark:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 198, 255, 0.4) !important;
+  }
+
+  /* Global Navbar Styling */
+  .navbar {
+      background: rgba(0, 0, 0, 0.4) !important;
+      backdrop-filter: blur(20px) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      padding: 15px 0 !important;
+  }
+  .navbar-brand {
+      color: #fff !important;
+      font-weight: 700 !important;
+      font-size: 1.5rem !important;
+      letter-spacing: 1px !important;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  }
+  .nav-link {
+      color: #ccc !important;
+      font-weight: 600 !important;
+      transition: color 0.3s !important;
+      margin: 0 5px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+  }
+  .nav-link:hover, .nav-link:focus {
+      color: #00c6ff !important;
+  }
+
+  /* Text overrides */
+  .text-dark, .text-muted, .text-success, h1, h2, h3, h4, h5, h6 {
+      color: #fff !important;
+  }
+  .fw-bold {
+      color: #00c6ff !important;
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="userhome">&#127968; House Predictify</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navUser" aria-controls="navUser" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navUser">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="userhome">&#128269; Search &amp; Predict</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="searchhistory">&#128203; My History</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="userprofile">&#128100; My Profile</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" style="color: #ff4b2b !important; font-weight:700 !important;" href="logout">&#128274; Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
